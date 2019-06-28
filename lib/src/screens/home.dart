@@ -23,8 +23,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         curve: Curves.easeIn,
       ),
     );
+  }
 
-    catController.forward();
+  animateCat() {
+    // https://api.flutter.dev/flutter/animation/AnimationController-class.html
+    if (catController.isDismissed) {
+      catController.forward();
+    } else {
+      catController.reverse();
+    }
   }
 
   Widget build(context) {
@@ -32,7 +39,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text('Animation'),
       ),
-      body: buildAnimation(),
+      body: GestureDetector(
+        child: buildAnimation(),
+        onTap: animateCat,
+      ),
     );
   }
 
